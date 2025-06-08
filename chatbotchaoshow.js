@@ -95,6 +95,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
   .n8n-bot {
     background: #dcfce7;
     align-self: flex-start;
+      margin-left: 0; 
   }
 
   #n8n-chat-input-container {
