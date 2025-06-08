@@ -304,7 +304,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
     <div id="n8n-chat-messages"></div>
     <div id="n8n-suggest-buttons">
       <button class="n8n-suggest">🧠 Thông tin giới thiệu Chào Show</button>
-      <button class="n8n-suggest">💰 Đặt Vé</button>
+      <button class="n8n-suggest">💰 Đặt vé đi xem</button>
       <button class="n8n-suggest">Lý Do nên đi Chào Show</button>
     </div>
     <div id="n8n-chat-input-container">
@@ -328,7 +328,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
     chatContainer.style.display = 'flex';
     const msgBox = document.getElementById('n8n-chat-messages');
     if (!greetingSent) {
-  createBotMessage(`Em là chuyên viên tư vấn Hoàng Bảo Khoa. Anh/chị cần hỗ trợ nội dung nào, có thể chọn nhanh bên dưới ạ.`);
+  createBotMessage(`Em là tư vấn viên Chào Show. Anh/chị cần hỗ trợ nội dung nào, có thể chọn nhanh bên dưới ạ.`);
   msgBox.scrollTop = msgBox.scrollHeight;
   greetingSent = true;
 }
