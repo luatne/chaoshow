@@ -228,6 +228,8 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
   display: flex;
   align-items: flex-start;
   gap: 5px;
+  justify-content: flex-start; 
+
 }
 .bubble {
   background-color: #f0f0f0;
@@ -235,6 +237,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
   border-radius: 15px;
   max-width: 80%;
   word-wrap: break-word;
+  margin-left: 0; /* Thêm dòng này để sát trái */
 }
 #n8n-suggest-buttons {
   display: flex;
