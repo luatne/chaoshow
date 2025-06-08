@@ -292,7 +292,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
 
   const chatBtn = document.createElement('button');
   chatBtn.id = 'n8n-chat-button';
-  chatBtn.innerHTML = "#";
+  chatBtn.innerHTML = "💬";
   document.body.appendChild(chatBtn);
 
   const chatContainer = document.createElement('div');
