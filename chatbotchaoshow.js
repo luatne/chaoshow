@@ -238,7 +238,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
   border-radius: 15px;
   max-width: 80%;
   word-wrap: break-word;
-  margin-left: 0; /* Thêm dòng này để sát trái */
+  text-align: left !important;
 }
 #n8n-suggest-buttons {
   display: flex;
