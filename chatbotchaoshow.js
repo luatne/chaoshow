@@ -6,7 +6,7 @@ style.innerHTML = `
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background-color: #2563eb;
+    background-color: #8B0C3B;
     color: white;
     border: none;
     border-radius: 50%;
