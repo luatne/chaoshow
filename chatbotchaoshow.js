@@ -420,7 +420,7 @@ document.getElementById('n8n-chat-send').onclick = async function () {
   msgBox.scrollTop = msgBox.scrollHeight;
 
   try {
-    const res = await fetch('https://n8n.thuhoai-academy.com/webhook-test/chaoshow', {
+    const res = await fetch('https://n8n.thuhoai-academy.com/webhook/chaoshow', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text })
