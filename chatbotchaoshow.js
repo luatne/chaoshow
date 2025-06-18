@@ -366,7 +366,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
     msgBox.scrollTop = msgBox.scrollHeight;
   
     try {
-      const res = await fetch('https://n8n.thuhoai-academy.com/webhook/chaoshow', {
+      const res = await fetch('https://n8n.thuhoai-academy.com/webhook-test/chaoshow', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text })
