@@ -316,7 +316,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
     <div id="n8n-chat-header">
       <h4>
         <img src="https://chatbot-test-teal-ten.vercel.app/096130.jpg" alt="Avatar" style="width: 30px; height: 30px; border-radius: 50%;" />
-        <span style="color: white;">Tư Vấn Viên AI của Chào Show</span>
+        <span style="color: white;">Chào Show's AI Consultant</span>
       </h4>
       <button id="n8n-chat-close">×</button>
     </div>
