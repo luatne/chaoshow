@@ -286,6 +286,21 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
 .msg.bot .bubble {
   font-size: 14px !important;
 }
+  @keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#n8n-chat-container.fade-in {
+  animation: fadeInUp 0.4s ease-out;
+}
+
 
 `;
   document.head.appendChild(style);
@@ -307,10 +322,11 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
     </div>
     <div id="n8n-chat-messages"></div>
     <div id="n8n-suggest-buttons">
-      <button class="n8n-suggest">🧠 Thông tin giới thiệu Chào Show</button>
-      <button class="n8n-suggest">💰 Đặt vé đi xem</button>
-      <button class="n8n-suggest">Lý Do nên đi Chào Show</button>
+      <button id="suggest-1" class="n8n-suggest">🧠 Thông tin giới thiệu Chào Show</button>
+      <button id="suggest-2" class="n8n-suggest">💰 Đặt vé đi xem</button>
+      <button id="suggest-3" class="n8n-suggest">Lý Do nên đi Chào Show</button>
     </div>
+
     <div id="n8n-chat-input-container">
       <span id="n8n-input-menu">☰</span>
       <input id="n8n-chat-input" type="text" placeholder="Nhập tin nhắn..." />
@@ -325,67 +341,106 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
 
   `;
   document.body.appendChild(chatContainer);
+chatContainer.querySelector('#n8n-suggest-buttons').style.display = 'none';
 
   let greetingSent = false;
 
-  chatBtn.onclick = () => {
-    chatContainer.style.display = 'flex';
-    const msgBox = document.getElementById('n8n-chat-messages');
-    if (!greetingSent) {
-  createBotMessage(`Em là tư vấn viên Chào Show. Anh/chị cần hỗ trợ nội dung nào, có thể chọn nhanh bên dưới ạ.`);
-  msgBox.scrollTop = msgBox.scrollHeight;
-  greetingSent = true;
-}
+chatBtn.onclick = () => {
+  chatContainer.style.display = 'flex';
+  chatContainer.classList.add('fade-in');
 
-  };
+  const msgBox = document.getElementById('n8n-chat-messages');
+
+  if (!greetingSent) {
+    createBotMessage(`
+      <div style="animation: fadeInUp 0.5s ease;">
+        <p style="margin: 0 0 8px 0;"><strong>👋 Hi there! Please select your language:</strong></p>
+        <div style="margin-top: 10px; display: flex; gap: 12px; justify-content: center;">
+          <button onclick="selectLang('vi')" style="
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: #f0fdf4;
+            border: 1px solid #4ade80;
+            color: #065f46;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+          " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Vietnamese</button>
+          <button onclick="selectLang('en')" style="
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: #eff6ff;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+          " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">English</button>
+        </div>
+      </div>
+    `);
+    msgBox.scrollTop = msgBox.scrollHeight;
+    greetingSent = true;
+  }
+};
+
+
 
   document.getElementById('n8n-chat-close').onclick = () => {
     chatContainer.style.display = 'none';
 
   };
+let messageCount = 0;
 
-  document.getElementById('n8n-chat-send').onclick = async function () {
-    const input = document.getElementById('n8n-chat-input');
-    const text = input.value.trim();
-    if (!text) return;
+document.getElementById('n8n-chat-send').onclick = async function () {
+  const input = document.getElementById('n8n-chat-input');
+  const text = input.value.trim();
+  if (!text) return;
 
-    const msgBox = document.getElementById('n8n-chat-messages');
-    msgBox.innerHTML += `<div class="n8n-msg n8n-user">${text}</div>`;
-    input.value = '';
-    msgBox.scrollTop = msgBox.scrollHeight;
-    // tắt tin nhắn gợi ý
+  const msgBox = document.getElementById('n8n-chat-messages');
+  msgBox.innerHTML += `<div class="n8n-msg n8n-user">${text}</div>`;
+  input.value = '';
+  msgBox.scrollTop = msgBox.scrollHeight;
+
+  // 👉 Tăng số lần gửi tin nhắn
+  messageCount++;
+
+  // 👉 Ẩn gợi ý sau lần chat thứ 1
+  if (messageCount >= 2) {
     document.getElementById('n8n-suggest-buttons').style.display = 'none';
+  }
 
   // Thêm typing indicator
-    const typingId = 'n8n-typing-indicator';
-    msgBox.innerHTML += `
-      <div id="${typingId}" class="n8n-msg n8n-typing">
-        <span></span><span></span><span></span>
-      </div>
-    `;
-    msgBox.scrollTop = msgBox.scrollHeight;
-  
-    try {
-      const res = await fetch('https://n8n.thuhoai-academy.com/webhook-test/chaoshow', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
-      });
-      const data = await res.json();
+  const typingId = 'n8n-typing-indicator';
+  msgBox.innerHTML += `
+    <div id="${typingId}" class="n8n-msg n8n-typing">
+      <span></span><span></span><span></span>
+    </div>
+  `;
+  msgBox.scrollTop = msgBox.scrollHeight;
 
-      const formattedReply = data.reply
-        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')
-        .replace(/\n/g, '<br>');
-      
-      document.getElementById(typingId)?.remove(); // Xoá "Đang phản hồi..."
-      createBotMessage(formattedReply);
-      msgBox.scrollTop = msgBox.scrollHeight;
-    } catch (err) {
-      document.getElementById(typingId)?.remove();
-      msgBox.innerHTML += `<div class="n8n-msg n8n-bot">Bot: Lỗi kết nối máy chủ</div>`;
-      msgBox.scrollTop = msgBox.scrollHeight;
-    }
-  };
+  try {
+    const res = await fetch('https://n8n.thuhoai-academy.com/webhook-test/chaoshow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text })
+    });
+    const data = await res.json();
+
+    const formattedReply = data.reply
+      .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')
+      .replace(/\n/g, '<br>');
+
+    document.getElementById(typingId)?.remove();
+    createBotMessage(formattedReply);
+    msgBox.scrollTop = msgBox.scrollHeight;
+  } catch (err) {
+    document.getElementById(typingId)?.remove();
+    msgBox.innerHTML += `<div class="n8n-msg n8n-bot">Bot: Lỗi kết nối máy chủ</div>`;
+    msgBox.scrollTop = msgBox.scrollHeight;
+  }
+};
+
   document.getElementById('n8n-chat-input').addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault(); // Ngăn xuống dòng
@@ -433,5 +488,38 @@ suggestButtons.forEach(btn => {
   // document.getElementById('n8n-suggest-buttons').style.display = 'none';
 
 
+window.selectLang = function(lang) {
+  const input = document.getElementById('n8n-chat-input');
+  if (lang === 'vi') {
+    input.value = "Tôi muốn sử dụng tiếng Việt";
+  } else {
+    input.value = "I want to use English";
+  }
+  document.getElementById('n8n-chat-send').click();
+};
+window.selectLang = function(lang) {
+  const input = document.getElementById('n8n-chat-input');
+
+  // Cập nhật placeholder input
+  input.placeholder = lang === 'vi' ? "Nhập tin nhắn..." : "Type your message...";
+
+  // Cập nhật nội dung gợi ý
+  document.getElementById('suggest-1').textContent = 
+    lang === 'vi' ? '🧠 Thông tin giới thiệu Chào Show' : '🧠 About Chào Show';
+  document.getElementById('suggest-2').textContent = 
+    lang === 'vi' ? '💰 Đặt vé đi xem' : '💰 Book a Ticket';
+  document.getElementById('suggest-3').textContent = 
+    lang === 'vi' ? 'Lý Do nên đi Chào Show' : 'Why You Should See Chào Show';
+
+  // Gửi tin nhắn cho bot để biết ngôn ngữ
+  if (lang === 'vi') {
+    input.value = "Xin chào";
+  } else {
+    input.value = "Hello ";
+  }
+  document.getElementById('n8n-chat-send').click();
+  chatContainer.querySelector('#n8n-suggest-buttons').style.display = 'flex';
+
+};
 
 })();
