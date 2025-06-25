@@ -324,7 +324,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
     <div id="n8n-suggest-buttons">
       <button id="suggest-1" class="n8n-suggest">🧠 Thông tin giới thiệu Chào Show</button>
       <button id="suggest-2" class="n8n-suggest">💰 Đặt vé đi xem</button>
-      <button id="suggest-3" class="n8n-suggest">Lý Do nên đi Chào Show</button>
+      <button id="suggest-3" class="n8n-suggest">Các quy định và lịch diễn</button>
     </div>
 
     <div id="n8n-chat-input-container">
@@ -509,7 +509,7 @@ window.selectLang = function(lang) {
   document.getElementById('suggest-2').textContent = 
     lang === 'vi' ? '💰 Đặt vé đi xem' : '💰 Book a Ticket';
   document.getElementById('suggest-3').textContent = 
-    lang === 'vi' ? 'Lý Do nên đi Chào Show' : 'Why You Should See Chào Show';
+    lang === 'vi' ? 'Các quy định và lịch diễn' : 'Show Policies & Schedule';
 
   // Gửi tin nhắn cho bot để biết ngôn ngữ
   if (lang === 'vi') {
