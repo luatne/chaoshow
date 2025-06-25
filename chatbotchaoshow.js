@@ -333,7 +333,7 @@ background: linear-gradient(135deg, #800020, #8B0C3B);
       <button id="n8n-chat-send">➤</button>
     </div>
     <div id="n8n-chat-footer">
-  <a href="https://support.thealita.com" target="_blank" style="text-decoration: none;">
+  <a href="https://www.facebook.com/phohaidang" target="_blank" style="text-decoration: none;">
   <span style="color: #10b981; font-weight: bold;">Online Ticket Support</span>
 </a>
 
@@ -351,37 +351,42 @@ chatBtn.onclick = () => {
 
   const msgBox = document.getElementById('n8n-chat-messages');
 
-  if (!greetingSent) {
-    createBotMessage(`
-      <div style="animation: fadeInUp 0.5s ease;">
-        <p style="margin: 0 0 8px 0;"><strong>👋 Hi there! Please select your language:</strong></p>
-        <div style="margin-top: 10px; display: flex; gap: 12px; justify-content: center;">
-          <button onclick="selectLang('vi')" style="
-            padding: 8px 16px;
-            border-radius: 8px;
-            background-color: #f0fdf4;
-            border: 1px solid #4ade80;
-            color: #065f46;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            cursor: pointer;
-          " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Vietnamese</button>
-          <button onclick="selectLang('en')" style="
-            padding: 8px 16px;
-            border-radius: 8px;
-            background-color: #eff6ff;
-            border: 1px solid #3b82f6;
-            color: #1e40af;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            cursor: pointer;
-          " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">English</button>
-        </div>
+if (!greetingSent) {
+  createBotMessage(`
+    <div style="animation: fadeInUp 0.5s ease;">
+      <p style="margin: 0 0 12px 0; font-weight: 600; font-size: 16px;">👋 Hi there! Please select your language:</p>
+      <div style="display: flex; justify-content: center; gap: 16px;">
+        <button onclick="selectLang('vi')" style="
+          padding: 10px 20px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+          border: none;
+          color: #065f46;
+          font-weight: 600;
+          font-size: 14px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.06)'">Vietnamese</button>
+        
+        <button onclick="selectLang('en')" style="
+          padding: 10px 20px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+          border: none;
+          color: #1e40af;
+          font-weight: 600;
+          font-size: 14px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.06)'">English</button>
       </div>
-    `);
-    msgBox.scrollTop = msgBox.scrollHeight;
-    greetingSent = true;
-  }
+    </div>
+  `);
+  msgBox.scrollTop = msgBox.scrollHeight;
+  greetingSent = true;
+}
 };
 
 
